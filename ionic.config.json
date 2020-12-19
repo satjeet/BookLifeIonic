@@ -1,0 +1,7 @@
+{
+  "name": "BookLifeIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
