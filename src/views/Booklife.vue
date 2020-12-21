@@ -5,7 +5,11 @@
         <ion-icon slot="icon-only" :icon="add"> </ion-icon>
       </ion-button>
     </template>
-    <h2>Lista de categorias</h2>
+    <ion-card>
+      <ion-card-header class="ion-text-center">
+        <ion-card-title> Lista de categorias</ion-card-title>
+      </ion-card-header>
+    </ion-card>
     <categories-list></categories-list>
   </base-layout>
 </template>
@@ -13,10 +17,24 @@
 <script>
 import BaseLayout from "../components/base/BaseLayout.vue";
 import CategoriesList from "../components/CategoriesList";
-import { IonButton, IonIcon } from "@ionic/vue";
+import {
+  IonButton,
+  IonIcon,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+} from "@ionic/vue";
 import { add } from "ionicons/icons";
 export default {
-  components: { CategoriesList, BaseLayout, IonButton, IonIcon },
+  components: {
+    CategoriesList,
+    BaseLayout,
+    IonButton,
+    IonIcon,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+  },
   data() {
     return { add };
   },

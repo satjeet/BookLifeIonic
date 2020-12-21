@@ -1,31 +1,24 @@
 <template>
   <base-layout page-title="Pilares">
     <template v-slot:actions-end>
-      <ion-button router-link="/memories/add">
-        <ion-icon slot="icon-only" :icon="add"> </ion-icon>
-      </ion-button>
+      {{ CategoryValue }}
     </template>
-    <h2>Pilares</h2>
-    <h4>{{ CategoryValue }}</h4>
 
     <div id="dynamic-component-demo">
-      <ion-segment @ionChange="segmentChanged($event)">
+      <ion-segment @ionChange="segmentChanged($event)" value="premisas">
         <ion-segment-button value="premisas">
-          <ion-label>Premisas</ion-label>
+          <ion-label>I</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="enemies">
-          <ion-label>Enemies</ion-label>
+        <ion-segment-button value="visiones">
+          <ion-label>II</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="propositos">
+          <ion-label>III</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="estrategias">
+          <ion-label>IV</ion-label>
         </ion-segment-button>
       </ion-segment>
-
-      <button
-        v-for="tab in tabs"
-        v-bind:key="tab"
-        v-bind:class="['tab-button', { active: currentTab === tab }]"
-        v-on:click="currentTab = tab"
-      >
-        {{ tab.props }}
-      </button>
 
       <keep-alive>
         <component v-bind:is="TabPilar" :value="currentPilar"></component>
@@ -47,24 +40,6 @@ import {
 import { add } from "ionicons/icons";
 import TabPilar from "../components/Pilar.vue";
 
-var tabs = [
-  {
-    name: "Pilar",
-    props: "Premisa",
-  },
-  {
-    name: "Pilar",
-    props: "Posts",
-  },
-  {
-    name: "Pilar",
-    props: "Archive",
-  },
-  {
-    name: "Pilar",
-    props: "Estrategias",
-  },
-];
 export default {
   components: {
     TabPilar,
@@ -78,11 +53,9 @@ export default {
   data() {
     return {
       add,
-      tabs: tabs,
       TabPilar: "tab-pilar",
       currentPilar: "premisas",
-      currentTab: tabs[0],
-      CategoryValue: this.$route.params.category,
+      CategoryValue: this.$route.params.category.toUpperCase(),
     };
   },
   methods: {
@@ -92,11 +65,7 @@ export default {
       this.currentPilar = ev.detail.value;
     },
   },
-  computed: {
-    currentTabComponent: function() {
-      return "tab-" + this.currentTab.name.toLowerCase();
-    },
-  },
+  computed: {},
 };
 </script>
 

@@ -1,73 +1,54 @@
 // mostrare las 12 categorias. podria aprovechar de cargar el libro de firebase
 <template>
-  <IonContent className="ion-padding">
-    <IonGrid>
-      <IonRow>
-        <IonCol
-          v-for="(item, index) in categorias"
-          :key="index"
-          size="6"
-          size-md="3"
-          offset-md="1"
-          size-lg="2"
-          offset-lg="1"
-        >
-          <ion-card :router-link="`/booklife/${item.value}`">
-            <ion-card-header>
-              <ion-card-subtitle> {{ item.text }}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-img :src="item.imageURL" :alt="item.text"></ion-img>
-            </ion-card-content>
-          </ion-card>
-        </IonCol>
-      </IonRow>
-    </IonGrid>
-  </IonContent>
-
-  <div class="gallery">
-    <div v-for="(item, index) in categorias" :key="index">
-      <div v-bind:class="classVariable(index)" class="card">
-        <img
-          v-bind:src="item.imageURL"
-          alt="{{item.text}}"
-          style="width:100%"
-        />
-        <div class="container">
-          <h4>
-            <b>{{ item.text }}</b>
-          </h4>
-        </div>
-      </div>
-    </div>
-  </div>
+  <IonGrid>
+    <IonRow>
+      <IonCol
+        v-for="(item, index) in categorias"
+        :key="index"
+        size="6"
+        size-md="3"
+        offset-md="1"
+        size-lg="2"
+        offset-lg="1"
+      >
+        <ion-card :router-link="`/booklife/${item.value}`">
+          <ion-card-header>
+            <ion-card-subtitle class="ion-text-center">
+              {{ item.text }}</ion-card-subtitle
+            >
+          </ion-card-header>
+          <ion-card-content>
+            <ion-img :src="item.imageURL" :alt="item.text"></ion-img>
+          </ion-card-content>
+        </ion-card>
+      </IonCol>
+    </IonRow>
+  </IonGrid>
 </template>
 
 <script>
 //import { pin, walk, warning, wifi, wine } from "ionicons/icons";
 import {
-  IonContent,
   IonGrid,
   IonRow,
   IonCol,
   IonCard,
   IonCardHeader,
-  IonCardSubtitle,
   IonCardContent,
+  IonCardSubtitle,
   IonImg,
 } from "@ionic/vue";
 export default {
   name: "Categorias",
   props: ["category"],
   components: {
-    IonContent,
     IonGrid,
     IonRow,
     IonCol,
     IonCard,
     IonCardHeader,
-    IonCardSubtitle,
     IonCardContent,
+    IonCardSubtitle,
     IonImg,
   },
 
