@@ -11,6 +11,12 @@
         <ion-buttons slot="end">
           <slot name="actions-end"></slot>
         </ion-buttons>
+        <ion-button size="small" slot="end" @click="openModal"
+          >Ingresar</ion-button
+        >
+        <ion-button size="small" slot="end" @click="cerrarSesion"
+          >Cerrar Sesion</ion-button
+        >
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -28,9 +34,20 @@ import {
   IonContent,
   IonBackButton,
   IonButtons,
+  modalController,
+  IonButton,
 } from "@ionic/vue";
+import ModalIngreso from "../auth/Ingreso";
+//import { mapActions } from "vuex";
+
 export default {
   props: ["pageTitle", "pageDefaultBack"],
+  data() {
+    return {
+      isOpen: false,
+      modal: null,
+    };
+  },
   components: {
     IonBackButton,
     IonPage,
@@ -39,6 +56,25 @@ export default {
     IonToolbar,
     IonContent,
     IonButtons,
+    IonButton,
+  },
+  methods: {
+    async CrearModal() {
+      this.modal = await modalController.create({
+        component: ModalIngreso,
+        componentProps: {
+          // title: 'New Title'
+        },
+      });
+    },
+    async openModal() {
+      await this.CrearModal();
+      this.isOpen = true;
+      this.modal.present();
+    },
+    cerrarSesion() {
+      this.$store.dispatch("cerrarSesion");
+    },
   },
 };
 </script>

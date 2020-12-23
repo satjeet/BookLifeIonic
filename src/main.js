@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
+import store from './store'
+
 
 import { IonicVue } from '@ionic/vue';
 
@@ -16,8 +18,9 @@ import '@ionic/vue/css/typography.css';
 /*
 import '@ionic/vue/css/float-elements.css';
 
-import '@ionic/vue/css/display.css';
 */
+import '@ionic/vue/css/display.css';
+
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/padding.css';
 import '@ionic/vue/css/text-alignment.css';
@@ -27,11 +30,39 @@ import '@ionic/vue/css/text-transformation.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import {
+  auth
+} from './firebase'
 
-const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
-  
-router.isReady().then(() => {
-  app.mount('#app');
+
+let app
+
+auth.onAuthStateChanged(user => {
+  if(!app){
+    app = createApp(App);
+  app.use(IonicVue);
+    app.use(router).use(store);
+    router.isReady().then(() => {
+        app.mount('#app');
+      });
+  }
+
+  if (user) {
+    // console.log(user)
+    const detectoUsuario = {
+      email: user.email,
+      uid: user.uid
+    }
+    console.log(user)
+    console.log("se esta quedando pegado 1")
+
+    store.dispatch('detectarUsuario', detectoUsuario)
+  } else {
+      console.log(user)
+    console.log("se esta quedando pegado 2")
+    store.dispatch('detectarUsuario', user)
+  }
+
+
 });
+
