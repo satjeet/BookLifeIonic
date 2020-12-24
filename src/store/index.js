@@ -97,7 +97,9 @@ const store=createStore({
           })
         })
  
-    },
+    },   // async actualizarPilarLibro({state}, formulario) {},
+
+    
 
     async actualizarLibro({
       

@@ -11,10 +11,18 @@
         <ion-buttons slot="end">
           <slot name="actions-end"></slot>
         </ion-buttons>
-        <ion-button size="small" slot="end" @click="openModal"
+        <ion-button
+          :class="hideIngresarButton"
+          size="small"
+          slot="end"
+          @click="openModal"
           >Ingresar</ion-button
         >
-        <ion-button size="small" slot="end" @click="cerrarSesion"
+        <ion-button
+          :class="hideCloseSesion"
+          size="small"
+          slot="end"
+          @click="cerrarSesion"
           >Cerrar Sesion</ion-button
         >
       </ion-toolbar>
@@ -39,6 +47,7 @@ import {
 } from "@ionic/vue";
 import ModalIngreso from "../auth/Ingreso";
 //import { mapActions } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   props: ["pageTitle", "pageDefaultBack"],
@@ -46,6 +55,7 @@ export default {
     return {
       isOpen: false,
       modal: null,
+      // hideCloseSesion: "ion-hide",
     };
   },
   components: {
@@ -57,6 +67,32 @@ export default {
     IonContent,
     IonButtons,
     IonButton,
+  },
+  computed: {
+    ...mapState(["usuario"]),
+    hideCloseSesion() {
+      if (this.usuario) {
+        // this.hideCloseSesion = "";
+        console.log("encontre usuario en header");
+        return "";
+      } else {
+        console.log("No hay usuario en header");
+        //this.hideCloseSesion = "ion-hide";
+
+        return "ion-hide";
+      }
+    },
+    hideIngresarButton() {
+      if (this.usuario) {
+        // this.hideCloseSesion = "";
+        console.log("encontre usuario en header");
+        return "ion-hide";
+      } else {
+        console.log("No hay usuario en header");
+        //this.hideCloseSesion = "ion-hide";
+        return "";
+      }
+    },
   },
   methods: {
     async CrearModal() {

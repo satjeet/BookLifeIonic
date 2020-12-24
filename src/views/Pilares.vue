@@ -21,7 +21,7 @@
       </ion-segment>
 
       <keep-alive>
-        <component v-bind:is="TabPilar" :value="currentPilar"></component>
+        <component v-bind:is="TabPilar" :nombrePilar="currentPilar" :nombreCategoria="nombreCategoria"></component>
       </keep-alive>
     </div>
   </base-layout>
@@ -55,6 +55,7 @@ export default {
       add,
       TabPilar: "tab-pilar",
       currentPilar: "premisas",
+      nombreCategoria:this.$route.params.category,
       CategoryValue: this.$route.params.category.toUpperCase(),
     };
   },
