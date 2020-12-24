@@ -10,11 +10,15 @@ const store=createStore({
         secciones: [],
         usuario: null,
         error: "",
+        categorias:null,
     }
   },
   mutations: {
     setSecciones(state, payload) {
       state.secciones = payload;
+    },
+    setCategorias(state, payload) {
+      state.categorias = payload;
     },
     setUsuario(state, payload) {
       console.log("usuario seteado");
@@ -97,7 +101,59 @@ const store=createStore({
           })
         })
  
-    },   // async actualizarPilarLibro({state}, formulario) {},
+    },   
+    async obtenerCategorias({ state,commit }) {
+     // console.log(payload.categoria);
+      //let seccionesObject={};
+    //  const premisaArray = [];
+     // const categoria = categoria;
+     let fullCategorias
+      console.log("antes de hacer la consulta de categorias");
+      let docRefCategorias=db.collection("bookLife").doc(state.usuario.email).collection("categorias");
+        await docRefCategorias.get().then(function(querySnapshot){
+          console.log("haciendo pruebas dentro de snbapshpot",querySnapshot.docs);
+          fullCategorias=querySnapshot.docs.map(doc => doc.data());
+        /*  querySnapshot.forEach(function(doc){
+            console.log("haciendo pruebas")
+            console.log(" => ", doc.data());
+           // fullCategorias=doc.data();
+          })*/
+          console.log("yupiii",fullCategorias);
+          commit("setCategorias", fullCategorias);
+
+        })
+ 
+    },   
+
+    //OBTENER CATEGORIAS
+
+    /* nombrePilar: this.nombrePilar,
+        nombreCategoria: this.nombreCategoria,
+        inputPilar: this.inputPilar,
+        */
+    async actualizarPilarLibro({state}, pilarData) {
+      const pilarcito=pilarData.nombrePilar;
+      let docRef = db.collection("bookLife").doc(state.usuario.email).collection("categorias").doc(pilarData.nombreCategoria)
+      await docRef.get().then(function(esteDocumento){
+        if(esteDocumento.exists){
+          console.log("el documento existe",pilarcito)
+          docRef.update({
+            [pilarcito]: firebase.firestore.FieldValue.arrayUnion(pilarData.inputPilar),
+          
+          })
+        }else{
+          console.log("el documento no existe",pilarcito)
+
+          docRef.set({
+            name:pilarData.nombreCategoria,
+            [pilarcito]:[pilarData.inputPilar],
+          })
+
+        }
+         alert("se subio");
+      }).catch(error => console.log(error))
+    
+    },
 
     
 
@@ -116,8 +172,8 @@ const store=createStore({
 */
 // arrayRemove va a ser util para eliminar
       let docRef = db.collection("bookLife").doc(state.usuario.email).collection("categorias").doc(formulario.categoria)
-      await docRef.get().then(function(thisDoc){
-        if(thisDoc.exists){
+      await docRef.get().then(function(esteDocumento){
+        if(esteDocumento.exists){
           docRef.update({
             premisa: firebase.firestore.FieldValue.arrayUnion(formulario.premisa),
             vision: firebase.firestore.FieldValue.arrayUnion(formulario.vision),

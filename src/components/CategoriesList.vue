@@ -3,7 +3,7 @@
   <IonGrid>
     <IonRow>
       <IonCol
-        v-for="(item, index) in categorias"
+        v-for="(categoria, index) in categorias"
         :key="index"
         size="6"
         size-md="3"
@@ -11,14 +11,14 @@
         size-lg="2"
         offset-lg="1"
       >
-        <ion-card :router-link="`/booklife/${item.value}`">
+        <ion-card :router-link="`/booklife/${categoria.value}`">
           <ion-card-header>
             <ion-card-subtitle class="ion-text-center">
-              {{ item.text }}</ion-card-subtitle
+              {{ categoria.text }}</ion-card-subtitle
             >
           </ion-card-header>
           <ion-card-content>
-            <ion-img :src="item.imageURL" :alt="item.text"></ion-img>
+            <ion-img :src="categoria.imageURL" :alt="categoria.text"></ion-img>
           </ion-card-content>
         </ion-card>
       </IonCol>

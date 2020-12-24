@@ -17,14 +17,10 @@
 <script>
 import BaseLayout from "../components/base/BaseLayout.vue";
 import CategoriesList from "../components/CategoriesList";
-import {
-  IonButton,
-  IonIcon,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-} from "@ionic/vue";
+import { IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle } from "@ionic/vue";
 import { add } from "ionicons/icons";
+import { mapState } from "vuex";
+
 export default {
   components: {
     CategoriesList,
@@ -37,6 +33,12 @@ export default {
   },
   data() {
     return { add };
+  },
+  mounted() {
+    this.$store.dispatch("obtenerCategorias");
+  },
+  computed: {
+    ...mapState(["categorias"]),
   },
 };
 </script>

@@ -15,7 +15,7 @@
     <ion-item>
       {{ nombreCategoria }}
     </ion-item>
-    <ion-item> item 2 </ion-item>
+    <ion-item> {{ categoriaPilarFiltrada }}</ion-item>
     <ion-item> item 3 </ion-item>
     <ion-item> item 4 </ion-item>
   </ion-list>
@@ -30,6 +30,8 @@ import {
   IonLabel,
   IonInput,
 } from "@ionic/vue";
+import { mapState } from "vuex";
+
 export default {
   props: ["nombrePilar", "nombreCategoria"],
   components: {
@@ -52,23 +54,17 @@ export default {
         nombreCategoria: this.nombreCategoria,
         inputPilar: this.inputPilar,
       };
-      switch (this.nombrePilar) {
-        case "premisas":
-          console.log("enviando premisa", pilarData);
-          break;
-        case "visiones":
-          console.log("enviando visiones", pilarData);
-          break;
-        case "propositos":
-          console.log("enviando propositos", pilarData);
-          break;
-        case "estrategias":
-          console.log("enviando estrategias", pilarData);
-          break;
-        default:
-          console.log("aun no registro el pilar", pilarData);
-          break;
-      }
+      this.$store.dispatch("actualizarPilarLibro", pilarData);
+    },
+  },
+  computed: {
+    ...mapState(["categorias"]),
+    categoriaPilarFiltrada() {
+      var difficult_tasks = this.categorias.filter(
+        (categoria) => (categoria.name = this.nombreCategoria)
+      );
+      console.log("lololol", difficult_tasks);
+      return difficult_tasks;
     },
   },
 };
