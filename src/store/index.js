@@ -11,6 +11,7 @@ const store=createStore({
         usuario: null,
         error: "",
         categorias:null,
+        pilares:[]
     }
   },
   mutations: {
@@ -19,6 +20,10 @@ const store=createStore({
     },
     setCategorias(state, payload) {
       state.categorias = payload;
+    },
+    setPilares(state, payload) {
+      console.log("quiero ver el payload", payload);
+      state.pilares = payload;
     },
     setUsuario(state, payload) {
       console.log("usuario seteado");
@@ -102,6 +107,7 @@ const store=createStore({
         })
  
     },   
+    //OBTENER CATEGORIAS
     async obtenerCategorias({ state,commit }) {
      // console.log(payload.categoria);
       //let seccionesObject={};
@@ -124,15 +130,64 @@ const store=createStore({
         })
  
     },   
+     //OBTENER Pilares
+     async obtenerPilares({ state,commit },pilarData) {
+      // console.log(payload.categoria);
+       //let seccionesObject={};
+     //  const premisaArray = [];
+      // const categoria = categoria;
+     // let fullCategorias
+       console.log("antes de hacer la consulta de categorias");
+       let docRefCategorias=db.collection("bookLife").doc(state.usuario.email).collection("categorias");
+       await  docRefCategorias.where("name", "==", pilarData.nombreCategoria).get().then(function(querySnapshot) {
+        console.log( "fsdfsdfs=> ", querySnapshot);
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            console.log(doc.id, " premisas=> ", doc.data().premisas);
 
-    //OBTENER CATEGORIAS
+           commit("setPilares", doc.data());
+
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+         //  console.log("haciendo pruebas dentro de snbapshpot",querySnapshot.docs);
+         //*  console.log("haciendo pruebas")
+         // * console.log(" => ", esteDocumento.data());
+           //fullCategorias=querySnapshot.docs.map(doc => doc.data());
+         /*  querySnapshot.forEach(function(doc){
+             console.log("haciendo pruebas")
+             console.log(" => ", doc.data());
+            // fullCategorias=doc.data();
+           })*/
+         //  console.log("yupiii",fullCategorias);
+         //*  commit("setCategorias", docRefCategorias);
+ 
+        // })
+  
+     },   
 
     /* nombrePilar: this.nombrePilar,
         nombreCategoria: this.nombreCategoria,
         inputPilar: this.inputPilar,
         */
-    async actualizarPilarLibro({state}, pilarData) {
-      const pilarcito=pilarData.nombrePilar;
+    async actualizarPilarLibro({state,commit}, pilarData) {
+      let pilarcito=pilarData.nombrePilar;
+      //commit("setUsuario", usuario);
+      console.log("nombre pilarcito",pilarcito);
+      console.log("que tiene this.pilaes y pilarcito",this.state.pilares[pilarcito]);
+      if(this.state.pilares[pilarcito]){
+        this.state.pilares[pilarcito] =[...this.state.pilares[pilarcito],pilarData.inputPilar];
+        console.log(" y despues que tiene this.pilares",this.state.pilares);
+
+      }else{
+        this.state.pilares[pilarcito] =[pilarData.inputPilar];
+
+
+      }
+    commit("setPilares", this.state.pilares);
       let docRef = db.collection("bookLife").doc(state.usuario.email).collection("categorias").doc(pilarData.nombreCategoria)
       await docRef.get().then(function(esteDocumento){
         if(esteDocumento.exists){
@@ -151,6 +206,51 @@ const store=createStore({
 
         }
          alert("se subio");
+      }).catch(error => console.log(error))
+    
+    },
+
+    async eliminarPilarLibro({state,commit}, pilarData) {
+      let pilarcito=pilarData.nombrePilar;
+      //commit("setUsuario", usuario);
+      console.log("nombre pilarcito",pilarcito);
+      console.log("que tiene this.pilaes y pilarcito",this.state.pilares[pilarcito]);
+
+      if(this.state.pilares[pilarcito]){
+        //this.state.pilares[pilarcito] =[...this.state.pilares[pilarcito],pilarData.inputPilar];
+        console.log(" y despues que tiene this.pilares",this.state.pilares);
+        console.log(" adentro esta el index que quiero eliminar",this.state.pilares[pilarcito]);
+        console.log(" el index es ",pilarData.index);
+
+let pilarTalado= this.state.pilares[pilarcito].splice(pilarData.index, 1);
+console.log("quiero ver lo que se va a seterar ",pilarTalado);
+console.log("quiero ver lo que se va a ppopopopopop ", this.state.pilares[pilarcito]);
+
+commit("setPilares", this.state.pilares);
+
+      }else{
+        console.log(" entro al eslse");
+        this.state.pilares[pilarcito] =[pilarData.inputPilar];
+
+
+      }
+      let docRef = db.collection("bookLife").doc(state.usuario.email).collection("categorias").doc(pilarData.nombreCategoria)
+      await docRef.get().then(function(esteDocumento){
+        if(esteDocumento.exists){
+          console.log("el documento existe",pilarcito)
+
+          docRef.update({
+            [pilarcito]: firebase.firestore.FieldValue.arrayRemove(pilarData.inputPilar),
+          
+          })
+        }else{
+          console.log("algo salio mal al eliminar")
+
+        }
+    
+
+
+         alert("se elimino correctamente");
       }).catch(error => console.log(error))
     
     },

@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button :default-href="pageDefaultBack"></ion-back-button>
         </ion-buttons>
@@ -12,6 +12,7 @@
           <slot name="actions-end"></slot>
         </ion-buttons>
         <ion-button
+          color="secondary"
           :class="hideIngresarButton"
           size="small"
           slot="end"
@@ -19,6 +20,7 @@
           >Ingresar</ion-button
         >
         <ion-button
+          color="secondary"
           :class="hideCloseSesion"
           size="small"
           slot="end"

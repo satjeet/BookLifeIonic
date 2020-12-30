@@ -9,15 +9,16 @@
       <ion-item>
         <ion-label position="floating">Ingrese sus {{ nombrePilar }}</ion-label>
         <ion-input type="text" required v-model="inputPilar" />
-        <ion-button type="submit" slot="end">Agregar {{ nombrePilar }}</ion-button>
+        <ion-button color="tertiary" type="submit" slot="end"
+          >Agregar {{ nombrePilar }}</ion-button
+        >
       </ion-item>
     </form>
-    <ion-item>
-      {{ nombreCategoria }}
-    </ion-item>
-    <ion-item> {{ categoriaPilarFiltrada }}</ion-item>
-    <ion-item> item 3 </ion-item>
-    <ion-item> item 4 </ion-item>
+    <pilar-list-item
+      :categoriaPilarFiltrada="this.pilares"
+      :nombrePilar="nombrePilar"
+      :nombreCategoria="nombreCategoria"
+    ></pilar-list-item>
   </ion-list>
 </template>
 
@@ -31,10 +32,11 @@ import {
   IonInput,
 } from "@ionic/vue";
 import { mapState } from "vuex";
-
+import PilarListItem from "./PilarListItem";
 export default {
   props: ["nombrePilar", "nombreCategoria"],
   components: {
+    PilarListItem,
     IonListHeader,
     IonList,
     IonItem,
@@ -45,20 +47,59 @@ export default {
   data() {
     return {
       inputPilar: "",
+      algo: this.nombrePilar,
+      editando: false,
+      editInputPilar: "",
+      claseEditar: "ion-hide",
+      //pilares: [],
     };
   },
   methods: {
+    editarItemPilar(pilar) {
+      console.log(pilar);
+      console.log(pilar.id);
+
+      this.editInputPilar = pilar;
+      this.claseEditar = "";
+
+      //return PilarActual;
+    },
+    pilarActual() {
+      let PilarActual = this.pilares.premisas;
+      return PilarActual;
+    },
     enviarPilar() {
       const pilarData = {
         nombrePilar: this.nombrePilar,
         nombreCategoria: this.nombreCategoria,
         inputPilar: this.inputPilar,
       };
+      //this.pilares = this.pilares.unshift(pilarData.inputPilar);
       this.$store.dispatch("actualizarPilarLibro", pilarData);
+      this.inputPilar = "";
+    },
+    obtenerPilar() {
+      const pilarData = {
+        nombrePilar: this.nombrePilar,
+        nombreCategoria: this.nombreCategoria,
+        inputPilar: this.inputPilar,
+      };
+      this.$store.dispatch("obtenerPilares", pilarData);
     },
   },
+  mounted() {
+    // invocar pilar
+    this.obtenerPilar();
+  },
   computed: {
-    ...mapState(["categorias"]),
+    ...mapState(["pilares"]),
+    categoriaPilarFiltrada() {
+      let algo = this.nombrePilar;
+      console.log("que tiene pilaes", this.pilares);
+      console.log("que tiene algo de pilares", this.pilares[algo]);
+      return this.pilares[algo];
+    },
+    /*
     categoriaPilarFiltrada() {
       var difficult_tasks = this.categorias.filter(
         (categoria) => (categoria.name = this.nombreCategoria)
@@ -66,6 +107,7 @@ export default {
       console.log("lololol", difficult_tasks);
       return difficult_tasks;
     },
+    */
   },
 };
 </script>

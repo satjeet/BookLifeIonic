@@ -1,22 +1,16 @@
 <template>
   <ion-header>
     <ion-toolbar>
-      <ion-title slot="start">Modal de Ingreso</ion-title>
+      <ion-title slot="start">Ingrese</ion-title>
       <ion-icon @click="modalClose" slot="end" size="large" name="close" />
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
     <section>
-      <ion-button
-        :size="sizeIngresar"
-        :color="colorIngresar"
-        @click="EstiloIngreso"
+      <ion-button :size="sizeIngresar" :color="colorIngresar" @click="EstiloIngreso"
         >Ingresar</ion-button
       >
-      <ion-button
-        :size="sizeRegistrar"
-        @click="EstiloRegistro"
-        :color="colorRegistrar"
+      <ion-button :size="sizeRegistrar" @click="EstiloRegistro" :color="colorRegistrar"
         >Registrar</ion-button
       >
     </section>
@@ -68,7 +62,7 @@ export default defineComponent({
       sizeIngresar: "large",
       sizeRegistrar: "small",
       colorIngresar: "primary",
-      colorRegistrar: "secundary",
+      colorRegistrar: "secondary",
       claseRegistro: "ion-hide",
       ingresoCorreo: "",
       ingresoClave: "",
@@ -109,7 +103,7 @@ export default defineComponent({
     },
   },
   methods: {
-    modalClose: function() {
+    modalClose: function () {
       //this.$emit("close", { foo: "bar" });
       modalController.dismiss();
     },
@@ -128,20 +122,20 @@ export default defineComponent({
         this.modalClose();
       }
     },
-    EstiloIngreso: function() {
+    EstiloIngreso: function () {
       this.sizeIngresar = "large";
       this.sizeRegistrar = "small";
       this.colorIngresar = "primary";
-      this.colorRegistrar = "secundary";
+      this.colorRegistrar = "secondary";
       this.claseRegistro = "ion-hide";
       this.botonEnvio = "Ingresar Ahora!";
       this.formularioRegistro = false;
     },
-    EstiloRegistro: function() {
+    EstiloRegistro: function () {
       this.sizeIngresar = "small";
       this.sizeRegistrar = "large";
       this.colorRegistrar = "primary";
-      this.colorIngresar = "secundary";
+      this.colorIngresar = "secondary";
       this.claseRegistro = "";
       this.botonEnvio = "Registrate ahora!";
       this.formularioRegistro = true;

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import Booklife from '../views/Booklife.vue'
 
+import {auth} from '../firebase'
 
 const routes = [
   {
@@ -15,7 +16,8 @@ const routes = [
   {
     path: '/booklife/:category',
     name: 'Pilares',
-    component:()=>import('../views/Pilares.vue')
+    component:()=>import('../views/Pilares.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/ingreso',
@@ -30,6 +32,27 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+
+
+router.beforeEach((to, from, next) => {
+
+  if(to.matched.some(record => record.meta.requiresAuth)){
+    const usuario = auth.currentUser
+     console.log('usuario desde router', usuario)
+    if(!usuario){
+      alert('primero ingrese como usuario')
+      next({
+        path: '/booklife'
+      })
+    }else{
+      next()
+    }
+  }else{
+    next()
+  }
+
 })
 
 export default router

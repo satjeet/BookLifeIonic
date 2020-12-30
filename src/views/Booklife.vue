@@ -1,12 +1,8 @@
 <template>
   <base-layout page-title="Book Life">
-    <template v-slot:actions-end>
-      <ion-button router-link="/memories/add">
-        <ion-icon slot="icon-only" :icon="add"> </ion-icon>
-      </ion-button>
-    </template>
+    <template v-slot:actions-end> </template>
     <ion-card>
-      <ion-card-header class="ion-text-center">
+      <ion-card-header color="tertiary" class="ion-text-center">
         <ion-card-title> Lista de categorias</ion-card-title>
       </ion-card-header>
     </ion-card>
@@ -19,7 +15,7 @@ import BaseLayout from "../components/base/BaseLayout.vue";
 import CategoriesList from "../components/CategoriesList";
 import { IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle } from "@ionic/vue";
 import { add } from "ionicons/icons";
-import { mapState } from "vuex";
+//import { mapState } from "vuex";
 
 export default {
   components: {
@@ -35,10 +31,10 @@ export default {
     return { add };
   },
   mounted() {
-    this.$store.dispatch("obtenerCategorias");
+    // this.$store.dispatch("obtenerCategorias");
   },
   computed: {
-    ...mapState(["categorias"]),
+    //...mapState(["categorias"]),
   },
 };
 </script>
