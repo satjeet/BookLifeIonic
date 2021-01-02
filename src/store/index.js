@@ -104,7 +104,11 @@ const store=createStore({
             console.log(" => ", doc.data());
             commit("setSecciones", doc.data());
           })
-        })
+        }).catch((error) => {
+          console.log(error);
+          commit("setError", error);
+        });
+        
  
     },   
     //OBTENER CATEGORIAS
@@ -307,8 +311,10 @@ commit("setPilares", this.state.pilares);
         */
     },
   },
-  modules: {
-  }
+  modules:{
+  },
+
+
 })
 
 

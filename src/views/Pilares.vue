@@ -1,5 +1,5 @@
 <template>
-  <base-layout page-title="Pilares">
+  <base-layout page-title="Categorias">
     <template v-slot:actions-end>
       {{ CategoryValue }}
     </template>
@@ -21,7 +21,11 @@
       </ion-segment>
 
       <keep-alive>
-        <component v-bind:is="TabPilar" :nombrePilar="currentPilar" :nombreCategoria="nombreCategoria"></component>
+        <component
+          v-bind:is="TabPilar"
+          :nombrePilar="currentPilar"
+          :nombreCategoria="nombreCategoria"
+        ></component>
       </keep-alive>
     </div>
   </base-layout>
@@ -30,13 +34,7 @@
 <script>
 import BaseLayout from "../components/base/BaseLayout.vue";
 //import CategoriesList from "../components/CategoriesList";
-import {
-  IonButton,
-  IonIcon,
-  IonLabel,
-  IonSegment,
-  IonSegmentButton,
-} from "@ionic/vue";
+import { IonButton, IonIcon, IonLabel, IonSegment, IonSegmentButton } from "@ionic/vue";
 import { add } from "ionicons/icons";
 import TabPilar from "../components/Pilar.vue";
 
@@ -55,7 +53,7 @@ export default {
       add,
       TabPilar: "tab-pilar",
       currentPilar: "premisas",
-      nombreCategoria:this.$route.params.category,
+      nombreCategoria: this.$route.params.category,
       CategoryValue: this.$route.params.category.toUpperCase(),
     };
   },
