@@ -13,7 +13,7 @@
 <script>
 import BaseLayout from "../components/base/BaseLayout.vue";
 import CategoriesList from "../components/CategoriesList";
-import { IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle } from "@ionic/vue";
+import { IonCard, IonCardHeader, IonCardTitle } from "@ionic/vue";
 import { add } from "ionicons/icons";
 //import { mapState } from "vuex";
 
@@ -21,8 +21,6 @@ export default {
   components: {
     CategoriesList,
     BaseLayout,
-    IonButton,
-    IonIcon,
     IonCard,
     IonCardHeader,
     IonCardTitle,

@@ -116,7 +116,7 @@ export default {
         {
           text: "Carrera ",
           imageURL:
-            "https://cdn.pixabay.com/photo/2019/07/25/17/09/camp-4363073__340.png",
+            "https://cdn.pixabay.com/photo/2016/11/08/05/20/adventure-1807524__340.jpg",
           value: "carrera",
         },
         {

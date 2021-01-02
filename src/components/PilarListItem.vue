@@ -1,8 +1,6 @@
 <template>
   <ion-item v-for="(pilar, index) in categoriaPilarFiltrada[nombrePilar]" :key="index">
-    <ion-label class="ion-text-wrap">
-      {{ this.nombreCategoria }}- {{ this.nombrePilar }} -{{ pilar }}</ion-label
-    >
+    <ion-label class="ion-text-wrap"> {{ pilar }}</ion-label>
 
     <ion-button
       color="warning"
