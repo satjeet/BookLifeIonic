@@ -3,6 +3,10 @@
     <h2 class="ion-text-capitalize">
       {{ nombrePilar }}
     </h2>
+
+    <ion-button @click="descripcionAlert">
+      <ion-icon name="help-outline"></ion-icon>
+    </ion-button>
   </ion-list-header>
   <ion-list>
     <form class="ion-padding" @submit.prevent="enviarPilar">
@@ -30,9 +34,12 @@ import {
   IonButton,
   IonLabel,
   IonInput,
+  IonIcon,
+  alertController,
 } from "@ionic/vue";
 import { mapState } from "vuex";
 import PilarListItem from "./PilarListItem";
+
 export default {
   props: ["nombrePilar", "nombreCategoria"],
   components: {
@@ -43,6 +50,7 @@ export default {
     IonButton,
     IonLabel,
     IonInput,
+    IonIcon,
   },
   data() {
     return {
@@ -51,10 +59,63 @@ export default {
       editando: false,
       editInputPilar: "",
       claseEditar: "ion-hide",
+      //help-outline,
       //pilares: [],
     };
   },
   methods: {
+    async descripcionAlert() {
+      let mensajeAlerta =
+        "Su premisa se refiere a las creencias fundamentales que tiene sobre esta categoría. ¿Qué crees? ¿Qué creencias profundamente arraigadas están dando forma a tu vida? ¿Son sus creencias fortalecedoras? ¿Te mueven a un nivel profundo o te están frenando? ¿Cuál es su premisa para esta área de su vida, o cuál le gustaría que fuera?";
+      let tituloAlerta = "Que son las premisas?";
+      let subTituloAlerta =
+        "Su premisa se refiere a las creencias fundamentales que tiene sobre esta categoría";
+
+      console.log(this.nombrePilar);
+      switch (this.nombrePilar) {
+        case "premisas":
+          mensajeAlerta =
+            "¿Qué crees? <br/>¿Qué creencias profundamente arraigadas están dando forma a tu vida?<br/> ¿Son sus creencias fortalecedoras? <br/>¿Te mueven a un nivel profundo o te están frenando? <br/>¿Cuál es su premisa para esta área de su vida, o cuál le gustaría que fuera?";
+          tituloAlerta = "Que son las premisas?";
+          subTituloAlerta =
+            "Su premisa se refiere a las creencias fundamentales que tiene sobre esta categoría";
+          break;
+        case "visiones":
+          mensajeAlerta =
+            "Pregúntese:<br/>¿Cómo quieres que se sienta esta área de tu vida? <br/>¿Cómo quieres que se vea?¿Qué quieres hacer de forma constante? <br/>Describe claramente tu Visión ideal.";
+          tituloAlerta = "Que son las visiones?";
+          subTituloAlerta =
+            "La visión se refiere al estado ideal que le gustaría alcanzar en esta importante categoría";
+
+          break;
+        case "propositos":
+          mensajeAlerta =
+            "¿Qué te da energía? <br/> ¿Qué te empodera para actuar? <br/>¿Qué te motiva a lograr tu Visión?<br/> Describe POR QUÉ quieres aprovechar al máximo esta área de tu vida.";
+          tituloAlerta = "Que son los propositos?";
+          subTituloAlerta =
+            "Su propósito se refiere a las razones de peso detrás de lo que desea en esta categoría";
+
+          break;
+        case "estrategias":
+          mensajeAlerta =
+            "¿Cómo hará realidad su visión?<br/> Pregúntese qué tipo de hábitos, actitudes y pasos de acción positivos puede implementar. <br/>¿Cuál es la RECETA para la Visión que desea crear?";
+          tituloAlerta = "Que son las estrategias?";
+          subTituloAlerta =
+            "Tu estrategia se refiere a las acciones específicas que te llevarán de donde estás ahora a donde quieres estar";
+
+          break;
+        default:
+          break;
+      }
+      const alert = await alertController.create({
+        cssClass: "my-custom-class",
+        header: tituloAlerta,
+        subHeader: subTituloAlerta,
+        message: mensajeAlerta,
+        buttons: ["GRACIAS"],
+      });
+      return alert.present();
+    },
     editarItemPilar(pilar) {
       console.log(pilar);
       console.log(pilar.id);

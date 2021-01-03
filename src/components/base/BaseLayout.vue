@@ -25,7 +25,7 @@
           size="small"
           slot="end"
           @click="cerrarSesion"
-          >Cerrar Sesion</ion-button
+          ><ion-icon name="exit-outline"></ion-icon> Cerrar Sesion</ion-button
         >
       </ion-toolbar>
     </ion-header>
