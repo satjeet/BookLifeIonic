@@ -209,7 +209,7 @@ const store=createStore({
           })
 
         }
-         alert("se subio");
+         //alert("se subio");
       }).catch(error => console.log(error))
     
     },
@@ -293,7 +293,7 @@ commit("setPilares", this.state.pilares);
             estrategia:[formulario.estrategia]
           })
         }
-         alert("se subio")
+       // alert("se subio")
       }).catch(error => console.log(error))
 /*
       .update({
