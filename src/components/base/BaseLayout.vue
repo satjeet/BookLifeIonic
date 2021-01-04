@@ -46,6 +46,7 @@ import {
   IonButtons,
   modalController,
   IonButton,
+  IonIcon,
 } from "@ionic/vue";
 import ModalIngreso from "../auth/Ingreso";
 //import { mapActions } from "vuex";
@@ -69,6 +70,7 @@ export default {
     IonContent,
     IonButtons,
     IonButton,
+    IonIcon,
   },
   computed: {
     ...mapState(["usuario"]),

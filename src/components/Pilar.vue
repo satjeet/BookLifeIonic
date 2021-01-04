@@ -9,10 +9,7 @@
     </ion-button>
   </ion-list-header>
   <ion-list>
-    <ion-item>
-      <ion-label>Ejemplos</ion-label>
-      <ion-toggle slot="start" name="apple" color="secondary" checked></ion-toggle>
-    </ion-item>
+    <ejemplo-pilares-toggle></ejemplo-pilares-toggle>
     <form class="ion-padding" @submit.prevent="enviarPilar">
       <ion-item>
         <ion-label position="floating">Ingrese sus {{ nombrePilar }}</ion-label>
@@ -39,16 +36,17 @@ import {
   IonLabel,
   IonInput,
   IonIcon,
-  IonToggle,
   alertController,
 } from "@ionic/vue";
 import { mapState } from "vuex";
 import PilarListItem from "./PilarListItem";
+import EjemploPilaresToggle from "./EjemploPilaresToggle.vue";
 
 export default {
   props: ["nombrePilar", "nombreCategoria"],
   components: {
     PilarListItem,
+    EjemploPilaresToggle,
     IonListHeader,
     IonList,
     IonItem,
@@ -56,7 +54,6 @@ export default {
     IonLabel,
     IonInput,
     IonIcon,
-    IonToggle,
   },
   data() {
     return {
