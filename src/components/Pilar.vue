@@ -9,7 +9,14 @@
     </ion-button>
   </ion-list-header>
   <ion-list>
-    <ejemplo-pilares-toggle></ejemplo-pilares-toggle>
+    <keep-alive>
+      <component
+        v-bind:is="ejemploPilaresToggle"
+        :nombrePilar="this.nombrePilar"
+        :nombreCategoria="this.nombreCategoria"
+      ></component>
+    </keep-alive>
+
     <form class="ion-padding" @submit.prevent="enviarPilar">
       <ion-item>
         <ion-label position="floating">Ingrese sus {{ nombrePilar }}</ion-label>
@@ -62,6 +69,7 @@ export default {
       editando: false,
       editInputPilar: "",
       claseEditar: "ion-hide",
+      ejemploPilaresToggle: "ejemplo-pilares-toggle",
       //help-outline,
       //pilares: [],
     };

@@ -4,7 +4,7 @@
       {{ CategoryValue }}
     </template>
 
-    <div id="dynamic-component-demo">
+    <div id="dynamic-component">
       <ion-segment @ionChange="segmentChanged($event)" value="premisas">
         <ion-segment-button value="premisas">
           <ion-label>I</ion-label>
@@ -62,6 +62,9 @@ export default {
       console.log("Segment changed", ev);
       console.log("detalle del segmento selecionado", ev.detail);
       this.currentPilar = ev.detail.value;
+      //guardar el pilarActual en la store
+
+      //aqui voy a grabar el pilar en donde estoy y la categoria
     },
   },
   computed: {},

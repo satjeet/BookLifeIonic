@@ -52,10 +52,9 @@ export default {
       //this.categoriaPilarFiltrada.splice(index, 1);
       //this.pilares = this.pilares.unshift(pilarData.inputPilar);
       this.$store.dispatch("eliminarPilarLibro", pilarData);
-
-      console.log("que tiene dentro de item pilar", pilar);
-      console.log(this.categoriaPilarFiltrada);
-
+      if (this.debug) {
+        console.log("categoria pilar filtrada: ", this.categoriaPilarFiltrada);
+      }
       //this.editInputPilar = pilar;
       //this.claseEditar = "";
 
