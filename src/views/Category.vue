@@ -22,7 +22,7 @@
 
       <keep-alive>
         <component
-          v-bind:is="TabPilar"
+          v-bind:is="PilarOverview"
           :nombrePilar="currentPilar"
           :nombreCategoria="nombreCategoria"
         ></component>
@@ -36,11 +36,13 @@ import BaseLayout from "../components/base/BaseLayout.vue";
 //import CategoriesList from "../components/CategoriesList";
 import { IonButton, IonIcon, IonLabel, IonSegment, IonSegmentButton } from "@ionic/vue";
 import { add } from "ionicons/icons";
-import TabPilar from "../components/Pilar.vue";
+
+//componente dinamico
+import PilarOverview from "../components/PilarOverview.vue";
 
 export default {
   components: {
-    TabPilar,
+    PilarOverview,
     BaseLayout,
     IonButton,
     IonIcon,

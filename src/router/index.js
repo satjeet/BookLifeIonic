@@ -15,8 +15,8 @@ const routes = [
   },
   {
     path: '/booklife/:category',
-    name: 'Pilares',
-    component:()=>import('../views/Pilares.vue'),
+    name: 'Category',
+    component:()=>import('../views/Category.vue'),
     meta: { requiresAuth: true }
   },
   {
