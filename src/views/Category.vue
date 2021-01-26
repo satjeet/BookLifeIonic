@@ -4,7 +4,7 @@
       {{ CategoryValue }}
     </template>
 
-    <div id="dynamic-component">
+    <div id="selector-componente-dinamico">
       <ion-segment @ionChange="segmentChanged($event)" value="premisas">
         <ion-segment-button value="premisas">
           <ion-label>I</ion-label>
@@ -22,7 +22,7 @@
 
       <keep-alive>
         <component
-          v-bind:is="PilarOverview"
+          v-bind:is="ComponentPilarOverview"
           :nombrePilar="currentPilar"
           :nombreCategoria="nombreCategoria"
         ></component>
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       add,
-      TabPilar: "tab-pilar",
+      ComponentPilarOverview: "pilar-overview",
       currentPilar: "premisas",
       nombreCategoria: this.$route.params.category,
       CategoryValue: this.$route.params.category.toUpperCase(),

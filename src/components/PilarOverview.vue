@@ -1,37 +1,40 @@
 <template>
-  <ion-list-header>
-    <h2 class="ion-text-capitalize">
-      {{ nombrePilar }}
-    </h2>
+  <div>
+    <ion-list-header>
+      <h2 class="ion-text-capitalize">
+        {{ nombrePilar }}
+      </h2>
 
-    <ion-button color="tertiary" @click="descripcionAlert">
-      <ion-icon color="tertiary" name="help-outline"></ion-icon>
-    </ion-button>
-  </ion-list-header>
-  <ion-list>
-    <keep-alive>
-      <component
-        v-bind:is="ejemploPilaresToggle"
-        :nombrePilar="this.nombrePilar"
-        :nombreCategoria="this.nombreCategoria"
-      ></component>
-    </keep-alive>
+      <ion-button color="tertiary" @click="descripcionAlert">
+        <ion-icon color="tertiary" name="help-outline"></ion-icon>
+      </ion-button>
+    </ion-list-header>
+    <ion-list>
+      <!--Componente de props dinamicas  -->
+      <keep-alive>
+        <component
+          v-bind:is="ejemploPilaresToggle"
+          :nombrePilar="this.nombrePilar"
+          :nombreCategoria="this.nombreCategoria"
+        ></component>
+      </keep-alive>
 
-    <form class="ion-padding" @submit.prevent="enviarPilar">
-      <ion-item>
-        <ion-label position="floating">Ingrese sus {{ nombrePilar }}</ion-label>
-        <ion-input type="text" required v-model="inputPilar" />
-        <ion-button color="tertiary" type="submit" slot="end">
-          Agregar {{ nombrePilar }}
-        </ion-button>
-      </ion-item>
-    </form>
-    <pilar-list-item
-      :categoriaPilarFiltrada="this.pilares"
-      :nombrePilar="nombrePilar"
-      :nombreCategoria="nombreCategoria"
-    ></pilar-list-item>
-  </ion-list>
+      <form class="ion-padding" @submit.prevent="enviarPilar">
+        <ion-item>
+          <ion-label position="floating">Ingrese sus {{ nombrePilar }}</ion-label>
+          <ion-input type="text" required v-model="inputPilar" />
+          <ion-button color="tertiary" type="submit" slot="end">
+            Agregar {{ nombrePilar }}
+          </ion-button>
+        </ion-item>
+      </form>
+      <pilar-list-item
+        :categoriaPilarFiltrada="this.pilares"
+        :nombrePilar="nombrePilar"
+        :nombreCategoria="nombreCategoria"
+      ></pilar-list-item>
+    </ion-list>
+  </div>
 </template>
 
 <script>
