@@ -11,16 +11,7 @@
         size-lg="2"
         offset-lg="1"
       >
-        <ion-card color="secondary" :router-link="`/booklife/${categoria.value}`">
-          <ion-card-header>
-            <ion-card-subtitle class="ion-text-center">
-              {{ categoria.text }}</ion-card-subtitle
-            >
-          </ion-card-header>
-          <ion-card-content>
-            <ion-img :src="categoria.imageURL" :alt="categoria.text"></ion-img>
-          </ion-card-content>
-        </ion-card>
+        <categories-list-card :categoria="categoria"></categories-list-card>
       </IonCol>
     </IonRow>
   </IonGrid>
@@ -28,28 +19,16 @@
 
 <script>
 //import { pin, walk, warning, wifi, wine } from "ionicons/icons";
-import {
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonCard,
-  IonCardHeader,
-  IonCardContent,
-  IonCardSubtitle,
-  IonImg,
-} from "@ionic/vue";
+import { IonGrid, IonRow, IonCol } from "@ionic/vue";
+import CategoriesListCard from "./CategoriesListCard.vue";
 export default {
-  name: "Categorias",
+  name: "CategoriesList",
   props: ["category"],
   components: {
     IonGrid,
     IonRow,
     IonCol,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
-    IonCardSubtitle,
-    IonImg,
+    CategoriesListCard,
   },
 
   methods: {
